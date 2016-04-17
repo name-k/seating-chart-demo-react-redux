@@ -46,6 +46,7 @@
     "gulp-svg-symbols": "*",
     "gulp-util": "*",
     "gulplog": "*",
+    "lodash": "^4.11.1",
     "mkpath": "*",
     "node-notifier": "*",
     "react-hot-loader": "^1.3.0",

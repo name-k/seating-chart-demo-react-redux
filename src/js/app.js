@@ -1,17 +1,25 @@
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchInitialAppData, fetchInitialAppConfig } from 'actions/data-api-action';
+
 import Floors from 'containers/floors';
 import Constructor from 'containers/constructor';
 import Canvas from 'containers/canvas';
 
-import Api from 'modules/api-requests';
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-const api = new Api({cacheName : 'seating-chart'});
-let appData = api.getChartData();
-if(!appData) {
-  appData = require('config/saved.data.sample');
-}
+    this.init();
+
+  }
+
+  init() {
+    this.props.fetchInitialAppConfig();
+    this.props.fetchInitialAppData();
+  }
 
 
-export default class App extends React.Component {
   render() {
     return (
       <div className='layout'>
@@ -27,10 +35,19 @@ export default class App extends React.Component {
         <div className='layout__canvas'>
 
           <Canvas />
-          
+
         </div>
 
       </div>
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ 
+    fetchInitialAppData,
+    fetchInitialAppConfig
+  }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(App);

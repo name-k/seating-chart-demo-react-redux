@@ -1,4 +1,4 @@
-export default {
+const config = {
   id : 'test-chart-id',
   name : 'My test chart',
 
@@ -51,5 +51,7 @@ export default {
 
   ]
 
-
 };
+
+export default config;
+module.exports = config;

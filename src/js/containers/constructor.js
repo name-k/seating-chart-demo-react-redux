@@ -1,7 +1,20 @@
+import { connect } from 'react-redux';
+import ConstructorItem from 'components/constructor-item';
 
+class Constructor extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-export default class App extends React.Component {
   render() {
+
+    let items = this.props.items.map((object) => {
+      return (
+        <div className="column small-4" key={object.id}>
+          <ConstructorItem data={object} />
+        </div>
+      );
+    });
 
     return (
       <div className='constructor'>
@@ -11,40 +24,7 @@ export default class App extends React.Component {
         <div className="constructor__list">
           <div className="row nested">
 
-            <div className="column small-4">
-
-              <div className="constructor-item">
-                <div className="constructor-item__image">
-                  <img src="svg/table_only_square_4.svg" />
-                </div>
-                <span className="constructor-item__title">
-                  Square table
-                </span>
-              </div>
-
-            </div>
-
-            <div className="column small-4">
-              <div className="constructor-item">
-                <div className="constructor-item__image">
-                  <img src="svg/table_only_circle_4.svg" />
-                </div>
-                <span className="constructor-item__title">
-                  Round table
-                </span>
-              </div>
-            </div>
-
-            <div className="column small-4">
-              <div className="constructor-item">
-                <div className="constructor-item__image">
-                  <img src="svg/table_only_rectangle_8.svg" />
-                </div>
-                <span className="constructor-item__title">
-                  Rectangle table
-                </span>
-              </div>
-            </div>
+            {items}
 
           </div>
         </div>
@@ -53,3 +33,11 @@ export default class App extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    items : state.constructorObjects,
+  };
+}
+
+export default connect(mapStateToProps)(Constructor);

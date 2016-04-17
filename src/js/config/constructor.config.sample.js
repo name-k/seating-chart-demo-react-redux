@@ -1,11 +1,13 @@
-export default {
+const config = {
+  mode : 'default',
   constructor : {
     items : [
 
       {
         name : 'Square table',
+        id   : 'table-square',
         type : 'table-square',
-        image : 'svg/svg/table_only_square_4.svg',
+        image : 'svg/table_only_square_4.svg',
         properties : [
           {
             name : 'size',
@@ -37,6 +39,7 @@ export default {
 
       {
         name : 'Rectangle table',
+        id : 'table-rectangle',
         type : 'table-rectangle',
         image : 'svg/table_only_rectangle_8.svg',
         properties : [
@@ -50,6 +53,7 @@ export default {
 
       {
         name : 'Round table',
+        id : 'table-round',
         type : 'table-round',
         image : 'svg/table_only_circle_4.svg',
         properties : [
@@ -69,3 +73,6 @@ export default {
     ],
   },
 };
+
+export default config;
+module.exports = config;
