@@ -27,9 +27,8 @@ let lazyTask = function(taskName, path, options) {
 };
 
 
-lazyTask('server', './tasks/server', {
-  serve : config.dir.build
-});
+lazyTask('js:server', './tasks/hot-server', {});
+
 
 lazyTask('clean', './tasks/clean', {
   src : [config.dir.build, config.dir.tmp]
@@ -59,10 +58,6 @@ lazyTask('svg', './tasks/svg', {
   svgTemplate : config.paths.svg.templates.svg,
   cssTemplate : config.paths.svg.templates.css,
 });
-
-
-// scripts
-lazyTask('js', './tasks/scripts', config);
 
 
 // styles
@@ -101,7 +96,6 @@ lazyTask('templates:includes', './tasks/collectFilenames', {
 });
 
 
-
 gulp.task('styles', gulp.series('styles:includes', 'styles:raw'));
 gulp.task('templates', gulp.series('templates:includes', 'templates:raw'));
 
@@ -109,7 +103,6 @@ gulp.task('templates', gulp.series('templates:includes', 'templates:raw'));
 // watch
 gulp.task('watch:main', function() {
   if(config.flags.shouldWatch) {
-    gulp.watch(config.paths.js.watch, gulp.series('js'));
     gulp.watch(config.paths.styles.watch, gulp.series('styles:raw'))
       .on('add', gulp.series('styles:includes'))
       .on('unlink', gulp.series('styles:includes'));
@@ -135,13 +128,14 @@ gulp.task('watch', gulp.parallel('watch:main', 'watch:assets'));
 
 
 
-gulp.task('build:main', gulp.parallel('styles', 'templates', 'js'));
+gulp.task('build:main', gulp.parallel('styles', 'templates'));
+
 gulp.task('build:assets', gulp.parallel('fonts', 'img:design', 'svg', 'img:gag'));
 gulp.task('build', gulp.parallel('build:main', 'build:assets'));
 
 
-gulp.task('dev', gulp.series('clean', 'build', gulp.parallel('watch', 'server')));
-gulp.task('fast', gulp.series('build:main', gulp.parallel('watch', 'server')));
+gulp.task('dev', gulp.series('clean', 'build', gulp.parallel('watch', 'js:server')));
+gulp.task('fast', gulp.series('build:main', gulp.parallel('watch', 'js:server')));
 
 
 

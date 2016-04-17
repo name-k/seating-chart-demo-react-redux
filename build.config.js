@@ -21,22 +21,19 @@ dir.dsgn   = path.join(dir.src, 'img/design');
 dir.svg    = path.join(dir.src, 'img/svg');
 dir.imggag = path.join(dir.src, 'img/pic');
 
-let flags = {};
-flags.mode        = process.env.NODE_ENV || 'development';
-flags.isDev       = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
-flags.isProd      = process.env.NODE_ENV == 'production';
-flags.debug       = process.env.DEBUG == 'true';
-flags.shouldWatch = !process.env.WATCH || process.env.NODE_WATCH == 'true';
+let flags = {
+  mode        : process.env.NODE_ENV || 'development',
+  isDev       : !process.env.NODE_ENV || process.env.NODE_ENV == 'development',
+  isProd      : process.env.NODE_ENV == 'production',
+  debug       : process.env.DEBUG == 'true',
+  shouldWatch : !process.env.WATCH || process.env.NODE_WATCH == 'true',
+};
+
+
 
 module.exports = {
   dir, flags,
   paths : {
-    js : {
-      context      : path.resolve(process.cwd()),
-      rootJSPath   : path.resolve(process.cwd(), dir.js),
-      publicPath   : '/js/',
-      dest         : path.join(dir.build, 'js'),
-    },
     styles: {
       watch : path.join(dir.stl, '**/*.*'),
       src   : path.join(dir.stl, 'main.*'),
