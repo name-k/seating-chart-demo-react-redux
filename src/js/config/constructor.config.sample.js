@@ -5,7 +5,7 @@ export default {
       {
         name : 'Square table',
         type : 'table-square',
-        image : '',
+        image : 'svg/svg/table_only_square_4.svg',
         properties : [
           {
             name : 'size',
@@ -36,9 +36,22 @@ export default {
       },
 
       {
+        name : 'Rectangle table',
+        type : 'table-rectangle',
+        image : 'svg/table_only_rectangle_8.svg',
+        properties : [
+          {
+            name : 'size',
+            type : 'single-value',
+            value : ['1x1', '2x2', '3x3'],
+          }
+        ]
+      },
+
+      {
         name : 'Round table',
         type : 'table-round',
-        image : '',
+        image : 'svg/table_only_circle_4.svg',
         properties : [
           {
             name : 'size',

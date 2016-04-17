@@ -47,16 +47,24 @@ lazyTask('img:gag', './tasks/assets', {
 });
 
 lazyTask('fonts', './tasks/assets', {
-  src : config.paths.fonts.src,
+  src : [
+    config.paths.fonts.src,
+    './node_modules/font-awesome/fonts/*.*'
+  ],
   dest : config.paths.fonts.dest,
 });
 
-lazyTask('svg', './tasks/svg', {
-  src         : config.paths.svg.src,
-  dest        : config.paths.svg.dest,
-  tmp         : config.dir.tmp,
-  svgTemplate : config.paths.svg.templates.svg,
-  cssTemplate : config.paths.svg.templates.css,
+// lazyTask('svg', './tasks/svg', {
+//   src         : config.paths.svg.src,
+//   dest        : config.paths.svg.dest,
+//   tmp         : config.dir.tmp,
+//   svgTemplate : config.paths.svg.templates.svg,
+//   cssTemplate : config.paths.svg.templates.css,
+// });
+
+lazyTask('svg', './tasks/assets', {
+  src : config.paths.svg.src,
+  dest : config.paths.svg.dest,
 });
 
 
@@ -116,14 +124,15 @@ gulp.task('watch:assets', function() {
       gulp.watch(config.paths.img.watch, gulp.series('img:design'));
       gulp.watch(config.paths.svg.watch, gulp.series('svg'))
         .on('unlink', function(filepath) {
-          $.remember('svg').forget(path.resolve(filepath));
+          $.remember.forget['svg'](path.resolve(filepath));
           delete $.cached.caches.svg[path.resolve(filepath)];
         });
       gulp.watch(config.paths.fonts.watch, gulp.series('fonts'));
       gulp.watch(config.paths.imggag.watch, gulp.series('img:gag'));
   }
 });
-gulp.task('watch', gulp.parallel('watch:main', 'watch:assets'));
+// gulp.task('watch', gulp.parallel('watch:main', 'watch:assets'));
+gulp.task('watch', gulp.parallel('watch:main'));
 
 
 

@@ -1,4 +1,7 @@
 import Floors from 'containers/floors';
+import Constructor from 'containers/constructor';
+import Canvas from 'containers/canvas';
+
 import Api from 'modules/api-requests';
 
 const api = new Api({cacheName : 'seating-chart'});
@@ -14,11 +17,17 @@ export default class App extends React.Component {
       <div className='layout'>
 
         <div className='layout__sidebar'>
+
           <Floors />
+          <Constructor />
+
         </div>
 
+
         <div className='layout__canvas'>
-          <h2>Canvas</h2>
+
+          <Canvas />
+          
         </div>
 
       </div>

@@ -1,22 +1,27 @@
 {
 	"folders":
 	[
-    {
-      "path": ".",
-      "name": "root files",
-      "folder_exclude_patterns" : [
-        "*"
-      ]
-    },
-    {
-      "path": "./src",
-      "name": "source files",
-      "folder_exclude_patterns" : []
-    },
 		{
-			"path": "./tasks",
-      "name": "gulp tasks",
-      "folder_exclude_patterns" : []
+			"folder_exclude_patterns":
+			[
+				"*"
+			],
+			"name": "root files",
+			"path": "."
+		},
+		{
+			"folder_exclude_patterns":
+			[
+			],
+			"name": "source files",
+			"path": "./src"
+		},
+		{
+			"folder_exclude_patterns":
+			[
+			],
+			"name": "gulp tasks",
+			"path": "./tasks"
 		}
 	]
 }

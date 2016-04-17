@@ -1,18 +1,28 @@
+
+
 export default class App extends React.Component {
   render() {
+
     return (
       <div className='floors'>
 
-        <div className="floors-item">
-          <span className="floors-item__title">
-            Floor #1
-          </span>
-          <button className="floors-item__delete">
-            x
-          </button>
-        </div>
+        <h4 className="floors__title">Floors</h4>
 
-        <button className="floors__add">
+        <div className="floors__list">
+
+          <div className="floors-item is-active">
+            <span className="floors-item__title">
+              Floor #1
+            </span>
+            <span className="hollow floors-item__delete">
+              <i className="fa fa-close fa-lg"></i>
+            </span>
+          </div>
+
+        </div>
+        
+
+        <button className="floors__add button">
           Add new floor
         </button>
 
