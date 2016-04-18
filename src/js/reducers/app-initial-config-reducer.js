@@ -1,12 +1,11 @@
 import * as APP from 'constants/app-constants';
-import assign from 'lodash/assign';
 
 export default function(state = {}, action) {
 
   switch (action.type) {
 
     case APP.FETCH_INITIAL_APP_CONFIG :
-      return assign(state, action.payload);
+      return action.payload;
 
     default :
       return state;
