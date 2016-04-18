@@ -1,5 +1,7 @@
 .constructor {
-  &__title {}
+  &__title {
+    margin-bottom: 20px;
+  }
   &__list {
 
     .column {
@@ -15,6 +17,15 @@
 
 .constructor-item {
   margin-bottom: 15px;
+  color: $primary-color;
+  cursor: pointer;
+  transition: all .2s ease;
+  padding: 5px 5px 10px;
+  
+  &:hover {
+    background-color: $primary-color;;
+    color: #fff;
+  }
   
   &__title {
     display: inline-block;

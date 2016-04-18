@@ -1,16 +1,25 @@
-Constructor:
-  ✔ Render items from config @done (2016-04-18 19:25)
-  ☐ Hightlight hovered items
+Webpack:
+  ☐ add error notifications
 
-Save:
-  ☐ render save button
-  ☐ save action
+Constructor:
+  ☐ drag and drop objects to the canvas
 
 Canvas:
-  ☐ initial render from saved data
-
+  ☐ drag objects on the canvas
 
 Floors:
   ☐ add floor action
   ☐ delete floor action
   ☐ render delete floor button only in 2 or more floors
+
+
+Save:
+  ☐ save action
+
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+✔ initial render from saved data @done (2016-04-18 21:28) @project(Canvas)
+✔ Render items from config @done (2016-04-18 19:25) @project(Constructor)
+✔ Hightlight hovered items @done (2016-04-18 19:35) @project(Constructor)
+✔ render save button @done (2016-04-18 21:28) @project(Save)

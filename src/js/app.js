@@ -24,10 +24,19 @@ class App extends React.Component {
     return (
       <div className='layout'>
 
-        <div className='layout__sidebar'>
+        <div className='layout__sidebar sidebar'>
+          
+          <div className='sidebar__box'>
+            <Floors />
+          </div>
 
-          <Floors />
-          <Constructor />
+          <div className='sidebar__box'>
+            <Constructor />
+          </div>
+
+          <div className='sidebar__box'>
+            <button className='button success'>Save</button>
+          </div>
 
         </div>
 

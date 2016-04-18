@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ConstructorItem from 'components/constructor-item';
 
 class Constructor extends React.Component {
@@ -6,11 +7,16 @@ class Constructor extends React.Component {
     super(props);
   }
 
+
+
   render() {
 
     let items = this.props.items.map((object) => {
       return (
-        <div className="column small-4" key={object.id}>
+        <div 
+          
+          className="column small-4" 
+          key={object.id}>
           <ConstructorItem data={object} />
         </div>
       );
@@ -38,6 +44,12 @@ function mapStateToProps(state) {
   return {
     items : state.constructorObjects,
   };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+
+  }, dispatch);
 }
 
 export default connect(mapStateToProps)(Constructor);

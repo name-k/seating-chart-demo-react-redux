@@ -14,7 +14,6 @@ body, html {
   .layout__canvas {
     margin: 30px 30px 30px 380px;
     height: 500px;
-    padding: 30px;
     position: relative;
     width: 500px;
     border: 1px solid #ccc;
@@ -28,5 +27,18 @@ body, html {
     width: 350px;
     background-color: #fafafa;
     border-right: 1px solid #ccc;
-    padding: 30px;
   }
+
+
+.sidebar {
+  &__box {
+    padding: 30px;
+    border-bottom: 1px solid #ccc;
+    > *:last-child {
+      margin-bottom: 0;
+    }
+    > *:first-child {
+      margin-top: 0;
+    }
+  }
+}

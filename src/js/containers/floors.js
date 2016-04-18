@@ -22,7 +22,7 @@ export default class App extends React.Component {
         </div>
         
 
-        <button className="floors__add button">
+        <button className="floors__add button small">
           Add new floor
         </button>
 

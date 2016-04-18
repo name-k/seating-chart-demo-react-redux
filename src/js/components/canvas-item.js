@@ -1,21 +1,52 @@
+import bindAll from 'lodash/bindAll';
+
+import DragAndDrop from 'modules/drag-and-drop';
+
 export default class CanvasItem extends React.Component {
   constructor(props) {
     super(props);
+
+    bindAll(this, ['handleMouseDown', 'handleMouseUp', 'handleClick']);
   }
+
+  componentDidMount() {
+    new DragAndDrop({
+      target : this.refs.item,
+      scope  : this.props.dndScope,
+      // listenMode : true,
+      callbacks : {
+        onDragMove : (coords) => {
+          
+        }
+      }
+    });
+  }
+
+  handleMouseDown(event) {
+    
+  }
+
+
+  handleMouseUp(event) {
+    // this.props.onDataUpdate(newData);
+  }
+
+  handleClick(event) {}
 
   render() {
 
-    let specs = this.props.data;
     let itemStyles = {
-      top : specs.posY,
-      left : specs.posX
+      left : this.props.data.posX,
+      top : this.props.data.posY,
     };
-
-    console.log(itemStyles);
 
     return (
 
       <div 
+        ref='item'
+        onMouseDown={this.handleMouseDown}
+        onMouseUp={this.handleMouseUp}
+        onClick={this.handleClick}
         className='canvas-item' 
         style={itemStyles}
       >
@@ -26,7 +57,7 @@ export default class CanvasItem extends React.Component {
             <img className='canvas-item__object__image' src={this.props.image} />
 
             <span className="canvas-item__object__title">
-              {specs.name}
+              {this.props.data.name}
             </span>
 
           </div>
