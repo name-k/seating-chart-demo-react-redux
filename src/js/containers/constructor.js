@@ -19,7 +19,7 @@ class Constructor extends React.Component {
     return (
       <div className='constructor'>
 
-        <h4 className="constructor__title">Constructor</h4>
+        <h4 className="constructor__title">Objects to drag</h4>
 
         <div className="constructor__list">
           <div className="row nested">

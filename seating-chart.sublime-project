@@ -10,16 +10,10 @@
 			"path": "."
 		},
 		{
-			"folder_exclude_patterns":
-			[
-			],
 			"name": "source files",
 			"path": "./src"
 		},
 		{
-			"folder_exclude_patterns":
-			[
-			],
 			"name": "gulp tasks",
 			"path": "./tasks"
 		}

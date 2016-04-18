@@ -1,1 +1,32 @@
-.canvas {}
+.canvas {
+  position: relative;
+  
+  &__layer {}
+}
+
+
+.canvas-item {
+  position: absolute;
+  &__wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+    &__object {
+      width: 100%; 
+      height: 100%;
+      background-color: red;
+      position: relative;
+      &__image {
+        @include translate-50();
+        max-width: 100%;
+        max-height: 100%;
+      }
+      &__title {
+        @include translate-50();
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+}

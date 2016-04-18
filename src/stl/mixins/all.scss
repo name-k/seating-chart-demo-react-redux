@@ -5,25 +5,110 @@
     display: table;
   }
   &:after {
-      clear: both;
+    clear: both;
   }
 }
 
 
-@mixin image-centered() {
+$path-to-backgrounds: '../img/';
+@mixin use-bg($name : '', $pos-x: 50%, $pos-y: 50%, $repeat: no-repeat, $size: auto) {
+  background-image: url('#{$path-to-backgrounds}#{$name}');
+  background-position: $pos-x $pos-y;
+  background-repeat: $repeat;
+  background-size: #{$size};
+}
+
+@mixin use-sprite($width: 0, $height: 0, $offsetRight: 9999, $offsetTop: 9999) {
+  $offsetRight : $offsetRight * (-10px);
+  $offsetTop : $offsetTop * (-10px);
+  background-image: url('../img/sprite.png');
+  background-position: $offsetRight $offsetTop;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: ($width + 0px);
+  height: ($height + 0px);
+}
+
+
+
+// test mixin to use svg sprite
+$path-to-svg: '../svg/bg-sprite.svg#';
+// $path-to-svg: '../svg/';
+@mixin use-svg($name : '', $pos-x: 50%, $pos-y: 50%, $repeat: no-repeat, $size: auto) {
+  background-image: url('#{$path-to-svg}svg-icon_#{$name}');
+  // background-image: url('#{$path-to-svg}#{$name}.svg');
+  background-position: $pos-x $pos-y;
+  background-repeat: $repeat;
+  background-size: #{$size};
+}
+
+
+@mixin translate-50($position: absolute) {
+  position: $position;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin translate-50-h($position: absolute) {
+  position: $position;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+@mixin translate-50-v($position: absolute) {
+  position: $position;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+@mixin has-image-centered($max-width: none, $max-height: none) {
   position: relative;
   overflow: hidden;
   img {
+    @include translate-50();
     display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     min-height: 100%;
     min-width: 100%;
-    max-width: none;
-    max-height: none;
+    max-width: $max-width;
+    max-height: $max-height;
     width: auto;
     height: auto;
   }
+}
+
+@mixin s($w, $h: $w) {
+  width: ($w + 0px);
+  height: ($h + 0px);
+}
+
+
+@mixin triangle(
+  $direction: right, 
+  $color: red, 
+  $height: 20, 
+  $width: $height
+  ) {
+  
+    $height : $height + 0px;
+    $width : ceil($width / 2) + 0px;
+    
+    border: $width solid transparent;
+    display: inline-block;
+    @if($direction == right) {
+      border-right: none;
+      border-left-width: $height;
+      border-left-color: $color;
+    } @elseif ($direction == left) {
+      border-left: none;
+      border-right-width: $height;
+      border-right-color: $color;
+    } @elseif ($direction == top) {
+      border-top: none;
+      border-bottom-width: $height;
+      border-bottom-color: $color;
+    } @elseif ($direction == bottom) {
+      border-bottom: none;
+      border-top-width: $height;
+      border-top-color: $color;
+    }
 }

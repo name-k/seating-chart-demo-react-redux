@@ -4,10 +4,11 @@ const config = {
 
   canvasObjects : [
     {
-      id       : 'object-id-1',
-      type     : 'table-square',
-      name     : 'My square table',
-      position : [10, 10],
+      id   : 'object-id-1',
+      type : 'table-square',
+      name : 'My square table',
+      posX : 10,
+      posY : 30,
       properties : [
         {
           name : 'size',
@@ -33,10 +34,11 @@ const config = {
     },
 
     {
-      id       : 'object-id-2',
-      position : [300, 350],
-      name     : 'My round table',
-      type     : 'table-round',
+      id   : 'object-id-2',
+      posX : 300,
+      posY : 350,
+      name : 'My round table',
+      type : 'table-round',
       properties : [
         {
           name : 'size',

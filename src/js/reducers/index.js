@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
-import AppDataReducer from 'reducers/app-initial-data-reducer';
-import AppConfigReducer from 'reducers/app-initial-config-reducer';
-import ConstructorObjectsReducer from 'reducers/constructor-objects';
+
+import appData from 'reducers/app-initial-data-reducer';
+import appConfig from 'reducers/app-initial-config-reducer';
+import constructorObjects from 'reducers/constructor-objects-reducer';
+import canvasObjects from 'reducers/canvas-objects-list-reducer';
 
 const rootReducer = combineReducers({
-  state : (state = {}) => state,
-  appData            : AppDataReducer,
-  appConfig          : AppConfigReducer,
-  constructorObjects : ConstructorObjectsReducer,
+  appData,
+  appConfig,
+  constructorObjects,
+  canvasObjects,
 });
 
 export default rootReducer;
