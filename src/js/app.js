@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchInitialAppData, fetchInitialAppConfig } from 'actions/data-api-action';
+import { fetchInitialAppData, fetchInitialAppConfig, saveAppData } from 'actions/data-api-actions';
 
 import Floors from 'containers/floors';
 import Constructor from 'containers/constructor';
@@ -10,13 +10,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.saveAppData = this.saveAppData.bind(this);
     this.init();
-
   }
 
   init() {
     this.props.fetchInitialAppConfig();
     this.props.fetchInitialAppData();
+  }
+
+
+  saveAppData() {
+    this.props.saveAppData(this.props.state.appData, this.props.state.canvasObjects);
   }
 
 
@@ -35,7 +40,9 @@ class App extends React.Component {
           </div>
 
           <div className='sidebar__box'>
-            <button className='button success'>Save</button>
+            <button 
+              onClick={this.saveAppData}
+              className='button success'>Save</button>
           </div>
 
         </div>
@@ -52,11 +59,16 @@ class App extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {state};
+}
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ 
     fetchInitialAppData,
-    fetchInitialAppConfig
+    fetchInitialAppConfig,
+    saveAppData
   }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

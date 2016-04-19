@@ -5,39 +5,39 @@ import DragAndDrop from 'modules/drag-and-drop';
 export default class CanvasItem extends React.Component {
   constructor(props) {
     super(props);
-
-    bindAll(this, ['handleMouseDown', 'handleMouseUp', 'handleClick']);
+    bindAll(this, ['handleMouseDown']);
   }
 
   componentDidMount() {
+    const id = this.props.data.id;
     new DragAndDrop({
       target : this.refs.item,
       scope  : this.props.dndScope,
       // listenMode : true,
       callbacks : {
-        onDragMove : (coords) => {
-          
+        onDragStart : (coords) => {},
+        onDragMove : (coords) => {},
+        onDragEnd : (coords) => {
+          this.props.onItemDataUpdate(id, {
+            posX : coords.x,
+            posY : coords.y
+          });
         }
       }
     });
   }
 
   handleMouseDown(event) {
-    
+    this.props.onItemSelect(this.props.data.id);
+    return false;
   }
-
-
-  handleMouseUp(event) {
-    // this.props.onDataUpdate(newData);
-  }
-
-  handleClick(event) {}
 
   render() {
 
     let itemStyles = {
       left : this.props.data.posX,
       top : this.props.data.posY,
+      zIndex : (this.props.data.isLastSelected ? '2' : '1') 
     };
 
     return (
@@ -45,8 +45,6 @@ export default class CanvasItem extends React.Component {
       <div 
         ref='item'
         onMouseDown={this.handleMouseDown}
-        onMouseUp={this.handleMouseUp}
-        onClick={this.handleClick}
         className='canvas-item' 
         style={itemStyles}
       >

@@ -26,6 +26,7 @@ export default class DragAndDrop {
 
 
     this.currentTargetCoords = {};
+    this.endPointCoords = {};
     this.coordsShift = {};
     this.dragZoneCoords = {};
 
@@ -35,9 +36,7 @@ export default class DragAndDrop {
 
   init() {
 
-    if(!this.config.target) {
-      throw new Error('No target supplied to drag.');
-    }
+    if(!this.config.target || !this.config.scope) return false;
 
     let scope = this.config.scope;
     this.dragZoneCoords = this.getElementCoords(scope);
@@ -64,8 +63,14 @@ export default class DragAndDrop {
       y1 : this.dragZoneCoords.y1 + this.coordsShift.y1,
     };
 
-    this.config.scope.addEventListener('mousemove', this.handleMouseMove);
+    this.config.callbacks.onDragStart({
+      x : this.currentTargetCoords.x - this.dragZoneCoords.x,
+      y : this.currentTargetCoords.y - this.dragZoneCoords.y,
+    });
+
+    document.addEventListener('mousemove', this.handleMouseMove);
     document.addEventListener('mouseup', this.handleMouseUp);
+
   }
 
 
@@ -85,18 +90,20 @@ export default class DragAndDrop {
       pageY = this.coordsLimit.y1;
     } 
 
-    console.log(pageY, this.coordsLimit.y1);
-
     let x = pageX - this.dragZoneCoords.x - this.coordsShift.x;
     let y = pageY - this.dragZoneCoords.y - this.coordsShift.y;
 
+    this.endPointCoords = {x, y};
     this.moveTargetTo(x, y);
+
   }
 
 
   handleMouseUp() {
-    this.config.scope.removeEventListener('mousemove', this.handleMouseMove);
+    this.config.callbacks.onDragEnd(this.endPointCoords);
+    document.removeEventListener('mousemove', this.handleMouseMove);
     document.removeEventListener('mouseup', this.handleMouseUp);
+
   }
 
 
@@ -107,7 +114,7 @@ export default class DragAndDrop {
       this.config.target.style.top = y + 'px';
     }
 
-    // this.config.callbacks.onDragMove({x, y});
+    this.config.callbacks.onDragMove({x, y});
   }
 
 
