@@ -1,0 +1,1 @@
+export const CONSTRUCTOR_ITEM = 'CONSTRUCTOR_ITEM';

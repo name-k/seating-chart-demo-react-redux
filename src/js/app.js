@@ -6,6 +6,12 @@ import Floors from 'containers/floors';
 import Constructor from 'containers/constructor';
 import Canvas from 'containers/canvas';
 
+// react-dnd 
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+
+@DragDropContext(HTML5Backend)
 class App extends React.Component {
   constructor(props) {
     super(props);

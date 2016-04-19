@@ -9,22 +9,40 @@ import bindAll from 'lodash/bindAll';
 
 import DragAndDrop from 'modules/drag-and-drop';
 
+// react-dnd
+import { DropTarget } from 'react-dnd';
+import * as dndTypes from 'constants/dnd-types';
 
+
+const boxTarget = {
+  drop() {
+    return { name: 'Dustbin' };
+  }
+};
+
+@DropTarget(dndTypes.CONSTRUCTOR_ITEM, boxTarget, (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+}))
 class Canvas extends React.Component {
 
   constructor(props) {
     super(props);
+    this.canvas == null;
     bindAll(this, ['handleItemDataUpdate', 'handleItemSelect']);
   }
 
-  // handleMouseDown(element, id) {
-  // }
+  static propTypes = {
+    canDrop              : React.PropTypes.bool.isRequired,
+    canvasItemDataUpdate : React.PropTypes.func.isRequired,
+    canvasItemSelect     : React.PropTypes.func.isRequired,
+    canvasObjects        : React.PropTypes.array.isRequired,
+    connectDropTarget    : React.PropTypes.func.isRequired,
+    isOver               : React.PropTypes.bool.isRequired,
+  };
 
-  // handleMouseUp(event, id) {
-  // }
 
-  // handleClick(event) {
-  // }
 
   handleItemDataUpdate(id, newData) {
     this.props.canvasItemDataUpdate(id, newData);
@@ -35,10 +53,10 @@ class Canvas extends React.Component {
   }
 
   renderCanvasItems() {
-    if(!this.refs.canvas) {
+    if(!this.canvas) {
       return (
-        <h2>Has no canvas ref yet!</h2>
-      )
+        <h2>Canvas is not yet rendered (no canvas ref)!</h2>
+      );
     }
 
     return this.props.canvasObjects.map(item => {
@@ -48,7 +66,7 @@ class Canvas extends React.Component {
         <CanvasItem 
           onItemSelect={this.handleItemSelect}
           onItemDataUpdate={this.handleItemDataUpdate}
-          dndScope={this.refs.canvas}
+          dndScope={this.canvas}
           image={itemPrototype.image} 
           selected={item.isLastSelected}
           data={item} 
@@ -63,14 +81,31 @@ class Canvas extends React.Component {
 
   render() {
 
+    const { canDrop, isOver, connectDropTarget } = this.props;
+    const isActive = canDrop && isOver;
+
+    let backgroundColor = '';
+    if (isActive) {
+      backgroundColor = '#d6eefb';
+    } else if (canDrop) {
+      backgroundColor = '#eef9ff';
+    }
+
     return (
-      <div className='canvas' ref='canvas'>
-        <div className="canvas__layer">
+      connectDropTarget(
+        <div 
+          style={{ backgroundColor }}
+          className='canvas' 
+          ref={c => this.canvas = c}>
+          <div className="canvas__layer">
 
-          {this.renderCanvasItems()}
+            {isActive ? 'Release to drop' : 'Drag here an item from the constructor' }
 
+            {this.renderCanvasItems()}
+
+          </div>
         </div>
-      </div>
+      )
     );
   }
 }

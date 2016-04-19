@@ -17,7 +17,11 @@ class Constructor extends React.Component {
           
           className="column small-4" 
           key={object.id}>
-          <ConstructorItem data={object} />
+          <ConstructorItem 
+            id    = {object.id}
+            image = {object.image}
+            name  = {object.name}
+          />
         </div>
       );
     });
