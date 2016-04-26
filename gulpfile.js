@@ -28,6 +28,7 @@ let lazyTask = function(taskName, path, options) {
 
 
 lazyTask('js:server', './tasks/hot-server', {});
+lazyTask('js:prod', './tasks/scripts', {});
 
 
 lazyTask('clean', './tasks/clean', {

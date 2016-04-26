@@ -5,10 +5,13 @@ export const FETCH_INITIAL_APP_DATA = 'FETCH_INITIAL_APP_DATA';
 export const FETCH_INITIAL_APP_CONFIG = 'FETCH_INITIAL_APP_CONFIG';
 export const SAVE_APP_DATA = 'SAVE_APP_DATA';
 
+
 export function fetchInitialAppData() {
 
   let DataTransfer = require('modules/data-transfer');
   let data = new DataTransfer({cacheName : 'seatingChart'}).getInitialAppData();
+
+  console.log(data);
 
   return {
     type : FETCH_INITIAL_APP_DATA,

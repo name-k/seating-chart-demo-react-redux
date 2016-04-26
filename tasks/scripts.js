@@ -4,7 +4,7 @@ const
   gulplog       = require('gulplog'),
   path          = require('path'),
   webpack       = require('webpack'),
-  webpackConfig = require('../webpack.config.js'),
+  webpackConfig = require('../webpack.prod.config.js'),
   notifier      = require('node-notifier');
 
 

@@ -12,10 +12,7 @@ export default class DataTrasfer {
       return parsedData;
     }
     else {
-      console.log('has NO saved data');
-      let initialData = require('config/saved-data.sample');
-      this.saveAppData(initialData);
-      return initialData;
+      return [];
     }
   }
 

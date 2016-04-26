@@ -14,9 +14,19 @@ const
   // browserSync          = require('browser-sync');
 
 const 
-  config = require('../build.config'),
-  webpackConfig = require('../webpack.config'),
-  bundler = webpack(webpackConfig, function(err, stats) {
+  config = require('../build.config');
+
+let webpackConfig;
+if(config.flags.isDev) {
+  console.log('dev webpack');
+  webpackConfig = require('../webpack.config');
+}
+else {
+  console.log('prod webpack');
+  webpackConfig = require('../webpack.prod.config'); 
+}
+
+const bundler = webpack(webpackConfig, function(err, stats) {
       if(!err) {
         // soft error catch
         err = stats.toJson().errors[0];
@@ -67,6 +77,7 @@ module.exports = function(options) {
           webpackHotMiddleware(bundler)
         ]
       },
+      online : false,
       open      : false,
       notify    : false,
       logLevel  : 'info',

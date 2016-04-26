@@ -1,6 +1,7 @@
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { canvasItemDataUpdate, canvasItemSelect } from 'actions/canvas-actions';
+import { canvasItemDataUpdate, canvasItemSelect, canvasItemAdd } from 'actions/canvas-actions';
 
 import CanvasItem from 'components/canvas-item';
 
@@ -15,10 +16,35 @@ import * as dndTypes from 'constants/dnd-types';
 
 
 const boxTarget = {
-  drop() {
-    return { name: 'Dustbin' };
+  drop(props, monitor, component) {
+    const cursorInitialPos = monitor.getInitialClientOffset();
+    const objectInitialPos = monitor.getInitialSourceClientOffset();
+    const cursorPos = monitor.getClientOffset();
+    const canvasCoords = component.getCanvasCoords();
+
+    const itemProps = monitor.getItem();
+    const timestamp = new Date().getTime();
+
+    props.canvasItemAdd({
+      id : `id-${timestamp}`,
+      isLastSelected : true,
+      name : 'noname',
+      type : itemProps.type,
+      properties : [],
+      posX : Math.floor(cursorPos.x - canvasCoords.left),
+      posY : Math.floor(cursorPos.y - canvasCoords.top),
+    });
+
+    // return {
+    //   shiftX : Math.floor(objectInitialPos.x - cursorInitialPos.x) * -1,
+    //   shiftY : Math.floor(objectInitialPos.y - cursorInitialPos.y) * -1,
+    //   posX : Math.floor(cursorPos.x - canvasCoords.left),
+    //   posY : Math.floor(cursorPos.y - canvasCoords.top)
+    // };
+
   }
 };
+
 
 @DropTarget(dndTypes.CONSTRUCTOR_ITEM, boxTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
@@ -42,7 +68,13 @@ class Canvas extends React.Component {
     isOver               : React.PropTypes.bool.isRequired,
   };
 
+  componentDidMount() {
+    this.forceUpdate();
+  }
 
+  getCanvasCoords() {
+    return this.canvas.getBoundingClientRect();
+  }
 
   handleItemDataUpdate(id, newData) {
     this.props.canvasItemDataUpdate(id, newData);
@@ -73,10 +105,6 @@ class Canvas extends React.Component {
           key={item.id} />
       );
     });
-  }
-
-  componentDidMount() {
-    this.forceUpdate();
   }
 
   render() {
@@ -120,7 +148,8 @@ function mapStateToProps({canvasObjects, constructorObjects}) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     canvasItemDataUpdate, 
-    canvasItemSelect
+    canvasItemSelect,
+    canvasItemAdd
   }, dispatch);
 }
 

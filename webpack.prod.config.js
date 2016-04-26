@@ -17,8 +17,6 @@ let webpackConfig = {
   //   bundle : './src/js/app'
   // },
   entry: [
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client',
     './index'
   ],
 
@@ -29,14 +27,7 @@ let webpackConfig = {
     // library    : '[name]',
   },
 
-  // watch : config.flags.shouldWatch, 
-
-  // watchOptions : {
-  //   aggregateTimeout : 100, 
-  // },
-
-  devtool : config.flags.isDev ? 'cheap-module-inline-source-map' : null, 
-  // devtool: config.flags.isDev ? '#eval-source-map' : null,
+  devtool : null, 
 
   resolve : {
     root : path.join(__dirname),
@@ -53,21 +44,23 @@ let webpackConfig = {
   module : {
     loaders : [{
       test    : /\.js$/,
-      // include : path.join(process.cwd(), config.dir.js),
       exclude: /node_modules/,
-      // loader  : 'babel?presets[]=es2015',
-      // loaders: ['react-hot', 'babel?presets[]=es2015'] 
-      loaders: ['react-hot', 'babel'] 
+      loaders: ['babel'] 
     }],
   },
 
   plugins : [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       NODE_ENV : JSON.stringify(config.flags.mode),
       DEBUG    : JSON.stringify(config.flags.debug)
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress : {
+        warnings     : false,
+        drop_console : true,
+        unsafe       : true,
+      }
     }),
     new webpack.ProvidePlugin({
       React : 'react'
@@ -76,17 +69,5 @@ let webpackConfig = {
   ],
 
 };
-
-if(config.flags.isProd) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress : {
-        warnings     : false,
-        drop_console : true,
-        unsafe       : true,
-      }
-    })
-  );
-}
 
 module.exports = webpackConfig;

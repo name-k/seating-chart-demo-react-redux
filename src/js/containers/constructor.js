@@ -21,6 +21,8 @@ class Constructor extends React.Component {
             id    = {object.id}
             image = {object.image}
             name  = {object.name}
+            type  = {object.type}
+            objectProps = {object.properties}
           />
         </div>
       );
