@@ -1,30 +1,33 @@
-export const CANVAS_ITEM_DATA_UPDATE = 'CANVAS_ITEM_DATA_UPDATE';
-export const CANVAS_ITEM_SELECTED = 'CANVAS_ITEM_SELECTED';
-export const CANVAS_ITEM_ADD = 'CANVAS_ITEM_ADD';
+import * as types from 'constants/general-types';
 
-export function canvasItemDataUpdate(id, data) {
+
+export function canvasItemAdd(data, floorIndex) {
+  return {
+    type : types.CANVAS_ITEM_ADD,
+    data,
+    floorIndex
+  };
+}
+
+
+export function canvasItemUpdate(id, data, floorIndex) {
 
   return {
-    type : CANVAS_ITEM_DATA_UPDATE,
+    type : types.CANVAS_ITEM_UPDATE,
     id,
-    data
+    data,
+    floorIndex
   };
 }
 
 
-
-export function canvasItemSelect(id) {
+export function canvasItemSelect(id, floorIndex) {
   return {
-    type : CANVAS_ITEM_SELECTED,
-    id
+    type : types.CANVAS_ITEM_SELECTED,
+    id,
+    floorIndex
   };
 }
 
 
 
-export function canvasItemAdd(data) {
-  return {
-    type : CANVAS_ITEM_ADD,
-    data
-  };
-}

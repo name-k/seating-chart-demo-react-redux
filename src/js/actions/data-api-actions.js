@@ -1,20 +1,15 @@
+import * as types from 'constants/general-types';
+
 import assign from 'lodash/assign';
 
 
-export const FETCH_INITIAL_APP_DATA = 'FETCH_INITIAL_APP_DATA';
-export const FETCH_INITIAL_APP_CONFIG = 'FETCH_INITIAL_APP_CONFIG';
-export const SAVE_APP_DATA = 'SAVE_APP_DATA';
-
-
-export function fetchInitialAppData() {
+export function fetchInitialData() {
 
   let DataTransfer = require('modules/data-transfer');
   let data = new DataTransfer({cacheName : 'seatingChart'}).getInitialAppData();
 
-  console.log(data);
-
   return {
-    type : FETCH_INITIAL_APP_DATA,
+    type : types.FETCH_INITIAL_DATA,
     payload : data
   };
 }
@@ -27,16 +22,16 @@ export function saveAppData(appRootState, canvasObjects) {
   new DataTransfer({cacheName : 'seatingChart'}).saveAppData(savedData);
   
   return {
-    type : SAVE_APP_DATA,
+    type : types.SAVE_DATA,
     state : savedData
   };
 }
 
 
 
-export function fetchInitialAppConfig() {
+export function fetchInitialConfig() {
   return {
-    type : FETCH_INITIAL_APP_CONFIG,
+    type : types.FETCH_INITIAL_CONFIG,
     payload : require('config/constructor.config.sample')
   };
 

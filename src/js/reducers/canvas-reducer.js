@@ -1,39 +1,82 @@
-import { FETCH_INITIAL_APP_DATA } from 'actions/data-api-actions';
-import { CANVAS_ITEM_DATA_UPDATE, CANVAS_ITEM_SELECTED, CANVAS_ITEM_ADD } from 'actions/canvas-actions';
+import * as types from 'constants/general-types';
 
 import find from 'lodash/find';
 import assign from 'lodash/assign';
 
-export default function(state = [], action) {
+export default function(layers = [[]], action) {
+
+  let currentLayer = [];
+  if(layers[0] && action.floorIndex) {
+    currentLayer = layers[action.floorIndex];
+  }
+
+  console.log(layers);
 
   switch (action.type) {
 
-    case FETCH_INITIAL_APP_DATA :
-      if(action.payload.canvasObjects) {
-        return action.payload.canvasObjects;
+    case types.FETCH_INITIAL_DATA :
+      if(action.payload.canvasLayers) {
+        return action.payload.canvasLayers;
       }
       else {
-        return state;
+        return layers;
       }
 
 
-    case CANVAS_ITEM_DATA_UPDATE : 
-      return state.map((el) => {
-        if(el.id == action.id) return assign({}, el, action.data);
+
+    case types.CANVAS_ITEM_ADD : 
+      let newLayer = currentLayer.concat(action.data);
+      return layers.concat(newLayer);
+    
+
+
+    case types.CANVAS_ITEM_UPDATE : {
+      let updatedLayer = currentLayer.map((el) => {
+        if(el.id == action.id) return {...el, ...action.data};
         return el;
       });
 
-    case CANVAS_ITEM_SELECTED :
-      return state.map((el) => {
-        if(el.id == action.id) return assign({}, el, {isLastSelected : true});
-        return assign({}, el, {isLastSelected : false});
+      return [
+        ...layers.slice(0, action.floorIndex),
+        ...updatedLayer,
+        ...layers.slice(action.floorIndex + 1)
+      ];
+    }
+
+
+
+    case types.CANVAS_ITEM_SELECTED : {
+      let updatedLayer = currentLayer.map((el) => {
+        if(el.id == action.id) return { ...el, isLastSelected : true };
+        return { ...el, isLastSelected : false };
       });
 
-    case CANVAS_ITEM_ADD : 
-      return state.concat(action.data);
+      debugger;
+
+      return [
+        ...layers.slice(0, action.floorIndex),
+        ...updatedLayer,
+        ...layers.slice(action.floorIndex + 1)
+      ];
+    }
+
+      
+
+    case types.FLOOR_ADD :
+      return layers.concat([[]]);
+
+
+
+    case types.FLOOR_REMOVE :
+      return [
+        ...layers.slice(0, action.floorIndex),
+        ...layers.slice(action.floorIndex + 1)
+      ];
+
+
 
     default :
-      return state;
+      return layers;
   }
 
 }

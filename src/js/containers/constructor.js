@@ -48,7 +48,7 @@ class Constructor extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    items : state.constructorObjects,
+    items : state.constructorData,
   };
 }
 

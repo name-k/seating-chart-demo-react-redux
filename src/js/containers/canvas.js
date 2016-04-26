@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { canvasItemDataUpdate, canvasItemSelect, canvasItemAdd } from 'actions/canvas-actions';
+import { canvasItemUpdate, canvasItemSelect, canvasItemAdd } from 'actions/canvas-actions';
 
 import CanvasItem from 'components/canvas-item';
 
@@ -19,8 +19,8 @@ const boxTarget = {
   drop(props, monitor, component) {
     const cursorInitialPos = monitor.getInitialClientOffset();
     const objectInitialPos = monitor.getInitialSourceClientOffset();
-    const cursorPos = monitor.getClientOffset();
-    const canvasCoords = component.getCanvasCoords();
+    const cursorPos        = monitor.getClientOffset();
+    const canvasCoords     = component.getCanvasCoords();
 
     const itemProps = monitor.getItem();
     const timestamp = new Date().getTime();
@@ -33,7 +33,7 @@ const boxTarget = {
       properties : [],
       posX : Math.floor(cursorPos.x - canvasCoords.left),
       posY : Math.floor(cursorPos.y - canvasCoords.top),
-    });
+    }, props.floorSelected);
 
     // return {
     //   shiftX : Math.floor(objectInitialPos.x - cursorInitialPos.x) * -1,
@@ -60,12 +60,12 @@ class Canvas extends React.Component {
   }
 
   static propTypes = {
-    canDrop              : React.PropTypes.bool.isRequired,
-    canvasItemDataUpdate : React.PropTypes.func.isRequired,
-    canvasItemSelect     : React.PropTypes.func.isRequired,
-    canvasObjects        : React.PropTypes.array.isRequired,
-    connectDropTarget    : React.PropTypes.func.isRequired,
-    isOver               : React.PropTypes.bool.isRequired,
+    canDrop           : React.PropTypes.bool.isRequired,
+    canvasItemUpdate  : React.PropTypes.func.isRequired,
+    canvasItemSelect  : React.PropTypes.func.isRequired,
+    canvas            : React.PropTypes.array.isRequired,
+    connectDropTarget : React.PropTypes.func.isRequired,
+    isOver            : React.PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -77,11 +77,11 @@ class Canvas extends React.Component {
   }
 
   handleItemDataUpdate(id, newData) {
-    this.props.canvasItemDataUpdate(id, newData);
+    this.props.canvasItemUpdate(id, newData, this.props.floorSelected);
   }
 
   handleItemSelect(id) {
-    this.props.canvasItemSelect(id);
+    this.props.canvasItemSelect(id, this.props.floorSelected);
   }
 
   renderCanvasItems() {
@@ -91,8 +91,10 @@ class Canvas extends React.Component {
       );
     }
 
-    return this.props.canvasObjects.map(item => {
-      let itemPrototype = findObj(this.props.constructorObjects, {type : item.type});
+    let canvasItems = this.props.canvas[this.props.floorSelected]
+
+    return canvasItems.map(item => {
+      let itemPrototype = findObj(this.props.constructorData, {type : item.type});
 
       return (
         <CanvasItem 
@@ -138,16 +140,17 @@ class Canvas extends React.Component {
   }
 }
 
-function mapStateToProps({canvasObjects, constructorObjects}) {
+function mapStateToProps({canvas, constructorData, floorSelected}) {
   return { 
-    canvasObjects, 
-    constructorObjects 
+    canvas, 
+    constructorData,
+    floorSelected
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    canvasItemDataUpdate, 
+    canvasItemUpdate, 
     canvasItemSelect,
     canvasItemAdd
   }, dispatch);

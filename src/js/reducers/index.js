@@ -1,15 +1,17 @@
 import { combineReducers } from 'redux';
 
-import appData from 'reducers/app-data-reducer';
-import appConfig from 'reducers/app-config-reducer';
-import constructorObjects from 'reducers/constructor-reducer';
-import canvasObjects from 'reducers/canvas-reducer';
+import constructorData from 'reducers/constructor-reducer';
+import canvas from 'reducers/canvas-reducer';
+import canvasActiveItem from 'reducers/canvas-active-item-reducer';
+import floor from 'reducers/floor-reducer';
+import floorSelected from 'reducers/floor-selected-reducer';
 
 const rootReducer = combineReducers({
-  appData,
-  appConfig,
-  constructorObjects,
-  canvasObjects,
+  constructorData,
+  canvas,
+  canvasActiveItem,
+  floor,
+  floorSelected
 });
 
 export default rootReducer;

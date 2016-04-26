@@ -1,6 +1,5 @@
 App state pieces - reducers: 
   ☐ Canvas objects (with floors structure)
-    ☐ Last selected canvas object
     ☐ Current active canvas object
 
   ☐ Constructor objects 

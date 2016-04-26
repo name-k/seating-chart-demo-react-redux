@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchInitialAppData, fetchInitialAppConfig, saveAppData } from 'actions/data-api-actions';
+import { fetchInitialData, fetchInitialConfig, saveAppData } from 'actions/data-api-actions';
 
 import Floors from 'containers/floors';
 import Constructor from 'containers/constructor';
@@ -21,8 +21,8 @@ class App extends React.Component {
   }
 
   init() {
-    this.props.fetchInitialAppConfig();
-    this.props.fetchInitialAppData();
+    this.props.fetchInitialConfig();
+    this.props.fetchInitialData();
   }
 
 
@@ -71,8 +71,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ 
-    fetchInitialAppData,
-    fetchInitialAppConfig,
+    fetchInitialData,
+    fetchInitialConfig,
     saveAppData
   }, dispatch);
 }
