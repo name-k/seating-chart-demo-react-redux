@@ -93,6 +93,7 @@ class Canvas extends React.Component {
 
     let canvasItems = this.props.canvas[this.props.floorSelected]
 
+
     return canvasItems.map(item => {
       let itemPrototype = findObj(this.props.constructorData, {type : item.type});
 

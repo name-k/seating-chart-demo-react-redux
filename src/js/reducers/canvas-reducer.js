@@ -5,12 +5,6 @@ import assign from 'lodash/assign';
 
 export default function(layers = [[]], action) {
 
-  let currentLayer = [];
-  if(layers[0] && action.floorIndex) {
-    currentLayer = layers[action.floorIndex];
-  }
-
-  console.log(layers);
 
   switch (action.type) {
 
@@ -24,13 +18,20 @@ export default function(layers = [[]], action) {
 
 
 
-    case types.CANVAS_ITEM_ADD : 
-      let newLayer = currentLayer.concat(action.data);
-      return layers.concat(newLayer);
+    case types.CANVAS_ITEM_ADD : {
+      let currentLayer = layers[action.floorIndex];
+      let newLayer = [...currentLayer, action.data];
+      return [
+        ...layers.slice(0, action.floorIndex),
+        newLayer,
+        ...layers.slice(action.floorIndex + 1)
+      ];
+    }
     
 
 
     case types.CANVAS_ITEM_UPDATE : {
+      let currentLayer = layers[action.floorIndex];
       let updatedLayer = currentLayer.map((el) => {
         if(el.id == action.id) return {...el, ...action.data};
         return el;
@@ -38,7 +39,7 @@ export default function(layers = [[]], action) {
 
       return [
         ...layers.slice(0, action.floorIndex),
-        ...updatedLayer,
+        updatedLayer,
         ...layers.slice(action.floorIndex + 1)
       ];
     }
@@ -46,16 +47,15 @@ export default function(layers = [[]], action) {
 
 
     case types.CANVAS_ITEM_SELECTED : {
+      let currentLayer = layers[action.floorIndex];
       let updatedLayer = currentLayer.map((el) => {
         if(el.id == action.id) return { ...el, isLastSelected : true };
         return { ...el, isLastSelected : false };
       });
 
-      debugger;
-
       return [
         ...layers.slice(0, action.floorIndex),
-        ...updatedLayer,
+        updatedLayer,
         ...layers.slice(action.floorIndex + 1)
       ];
     }
