@@ -28,7 +28,6 @@ class App extends React.Component {
 
   renderListItems() {
     let result = [];
-    console.log(this.props.currentFloor);
     for(let i = 0; i < this.props.floorsCount; i++) {
       let listItem = (
         <FloorListItem 
@@ -47,6 +46,14 @@ class App extends React.Component {
 
   render() {
 
+    let submitButton = (
+      <button 
+        onClick={this.handleItemAdd}
+        className="floors__add button small">
+        Add new floor
+      </button>
+    );
+
     return (
       <div className='floors'>
 
@@ -59,11 +66,7 @@ class App extends React.Component {
         </div>
         
 
-        <button 
-          onClick={this.handleItemAdd}
-          className="floors__add button small">
-          Add new floor
-        </button>
+        {this.props.floorsCount < 3 ? submitButton : ''}
 
       </div>
     );

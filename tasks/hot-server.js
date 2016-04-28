@@ -77,7 +77,7 @@ module.exports = function(options) {
           webpackHotMiddleware(bundler)
         ]
       },
-      online : false,
+      // online : false,
       open      : false,
       notify    : false,
       logLevel  : 'info',

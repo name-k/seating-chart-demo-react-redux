@@ -5,6 +5,7 @@ import { fetchInitialData, fetchInitialConfig, saveAppData } from 'actions/data-
 import Floors from 'containers/floors';
 import Constructor from 'containers/constructor';
 import Canvas from 'containers/canvas';
+import CanvasItemSettings from 'containers/canvas-item-settings';
 
 // react-dnd 
 import { DragDropContext } from 'react-dnd';
@@ -27,11 +28,19 @@ class App extends React.Component {
 
 
   saveAppData() {
-    this.props.saveAppData(this.props.state.appData, this.props.state.canvasObjects);
+    this.props.saveAppData(this.props.state);
   }
 
 
   render() {
+
+    let itemProperties = (
+      <div className='sidebar__box'>
+        <CanvasItemSettings />
+      </div>
+    );
+
+
     return (
       <div className='layout'>
 
@@ -40,6 +49,8 @@ class App extends React.Component {
           <div className='sidebar__box'>
             <Floors />
           </div>
+
+          {this.props.state.canvasActiveItem ? itemProperties : ''}
 
           <div className='sidebar__box'>
             <Constructor />

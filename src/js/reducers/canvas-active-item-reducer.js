@@ -1,6 +1,6 @@
 import * as types from 'constants/general-types';
 
-export default function(state = {}, action) {
+export default function(state = null, action) {
 
   switch (action.type) {
 
@@ -12,7 +12,7 @@ export default function(state = {}, action) {
 
 
     case types.CANVAS_ITEM_UNSELECTED : 
-      return {};
+      return null;
       
 
     default :

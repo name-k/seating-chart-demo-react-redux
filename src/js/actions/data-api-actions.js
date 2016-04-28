@@ -15,15 +15,14 @@ export function fetchInitialData() {
 }
 
 
-export function saveAppData(appRootState, canvasObjects) {
-  let savedData = assign({}, appRootState, {canvasObjects});
+export function saveAppData(data) {
 
   let DataTransfer = require('modules/data-transfer');
-  new DataTransfer({cacheName : 'seatingChart'}).saveAppData(savedData);
+  new DataTransfer({cacheName : 'seatingChart'}).saveAppData(data);
   
   return {
-    type : types.SAVE_DATA,
-    state : savedData
+    type : types.SAVE_DATA
+    // state : data
   };
 }
 

@@ -12,8 +12,8 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
 
     case types.FETCH_INITIAL_DATA :
-      if(action.payload.canvasObjects) {
-        return action.payload.canvasObjects.length;
+      if(action.payload.canvas) {
+        return { ...state, floors : action.payload.canvas.length};
       }
       else {
         return state;

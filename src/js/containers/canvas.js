@@ -77,7 +77,6 @@ class Canvas extends React.Component {
   }
 
   handleItemDataUpdate(id, newData) {
-    console.log(newData);
     this.props.canvasItemUpdate(id, newData, this.props.floorSelected);
   }
 
@@ -92,23 +91,25 @@ class Canvas extends React.Component {
       );
     }
 
-    let canvasItems = this.props.canvas[this.props.floorSelected]
+    let canvasItems = this.props.canvas[this.props.floorSelected];
 
+    if(canvasItems) {
+      return canvasItems.map(item => {
+        let itemPrototype = findObj(this.props.constructorData, {type : item.type});
 
-    return canvasItems.map(item => {
-      let itemPrototype = findObj(this.props.constructorData, {type : item.type});
-
-      return (
-        <CanvasItem 
-          onItemSelect={this.handleItemSelect}
-          onItemDataUpdate={this.handleItemDataUpdate}
-          dndScope={this.canvas}
-          image={itemPrototype.image} 
-          selected={item.isLastSelected}
-          data={item} 
-          key={item.id} />
-      );
-    });
+        return (
+          <CanvasItem 
+            onItemSelect={this.handleItemSelect}
+            onItemDataUpdate={this.handleItemDataUpdate}
+            dndScope={this.canvas}
+            image={itemPrototype.image} 
+            selected={item.isLastSelected}
+            data={item} 
+            key={item.id} />
+        );
+      });
+    }
+    
   }
 
   render() {

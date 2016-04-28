@@ -8,7 +8,6 @@ export default class DataTrasfer {
   getInitialAppData() {
     if(localStorage.getItem(this.cacheName)) {
       let parsedData = JSON.parse(localStorage.getItem(this.cacheName));
-      console.log('has saved data', parsedData);
       return parsedData;
     }
     else {
@@ -17,7 +16,6 @@ export default class DataTrasfer {
   }
 
   saveAppData(data) {
-    console.log('saving', data);
     let stringData = JSON.stringify(data);
     localStorage.setItem(this.cacheName, stringData);
   }

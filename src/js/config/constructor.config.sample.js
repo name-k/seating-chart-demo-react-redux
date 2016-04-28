@@ -1,6 +1,6 @@
 const config = {
   mode : 'default',
-  constructor : {
+  constructorData : {
     items : [
 
       {

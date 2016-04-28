@@ -11,22 +11,28 @@ class Constructor extends React.Component {
 
   render() {
 
-    let items = this.props.items.map((object) => {
-      return (
-        <div 
-          
-          className="column small-4" 
-          key={object.id}>
-          <ConstructorItem 
-            id    = {object.id}
-            image = {object.image}
-            name  = {object.name}
-            type  = {object.type}
-            objectProps = {object.properties}
-          />
-        </div>
-      );
-    });
+    let items = '';
+
+
+    if(this.props.items) {
+      items = this.props.items.map((object) => {
+        return (
+          <div 
+            className="column small-4" 
+            key={object.id}>
+            <ConstructorItem 
+              id    = {object.id}
+              image = {object.image}
+              name  = {object.name}
+              type  = {object.type}
+              objectProps = {object.properties}
+            />
+          </div>
+        );
+      });
+    }
+
+
 
     return (
       <div className='constructor'>
