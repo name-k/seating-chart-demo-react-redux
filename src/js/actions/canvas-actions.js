@@ -9,6 +9,14 @@ export function canvasItemAdd(data, floorIndex) {
   };
 }
 
+export function canvasItemRemove(id, floorIndex) {
+  return {
+    type : types.CANVAS_ITEM_REMOVE,
+    id,
+    floorIndex
+  };
+}
+
 
 export function canvasItemUpdate(id, data, floorIndex) {
 
@@ -26,6 +34,13 @@ export function canvasItemSelect(id, floorIndex) {
     type : types.CANVAS_ITEM_SELECTED,
     id,
     floorIndex
+  };
+}
+
+export function canvasItemDeselect(id, floorIndex) {
+  return {
+    type : types.CANVAS_ITEM_DESELECTED,
+    id, floorIndex
   };
 }
 

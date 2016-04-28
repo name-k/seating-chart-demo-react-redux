@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { canvasItemUpdate, canvasItemSelect, canvasItemAdd } from 'actions/canvas-actions';
@@ -27,7 +26,7 @@ const boxTarget = {
 
     props.canvasItemAdd({
       id : `id-${timestamp}`,
-      isLastSelected : true,
+      isLastSelected : false,
       name : 'noname',
       type : itemProps.type,
       properties : [],

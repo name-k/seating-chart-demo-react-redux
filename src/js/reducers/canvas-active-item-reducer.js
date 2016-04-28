@@ -11,7 +11,7 @@ export default function(state = null, action) {
       };
 
 
-    case types.CANVAS_ITEM_UNSELECTED : 
+    case types.CANVAS_ITEM_DESELECTED : 
       return null;
       
 

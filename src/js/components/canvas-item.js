@@ -36,10 +36,15 @@ export default class CanvasItem extends React.Component {
 
   render() {
 
+    const isSelected = this.props.data.isLastSelected;
+
     let itemStyles = {
       left : this.props.data.posX,
       top : this.props.data.posY,
-      zIndex : (this.props.data.isLastSelected ? '2' : '1') 
+      zIndex : (isSelected ? '2' : '1'),
+      backgroundColor : (isSelected ? '#bbb' : ''),
+      bodrerColor : (isSelected ? '#bbb' : ''),
+      boxShadow : (isSelected ? ' 0 0 5px 0 #bbb' : ''),
     };
 
     return (
