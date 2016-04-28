@@ -18,10 +18,12 @@ export default class CanvasItem extends React.Component {
         onDragStart : (coords) => {},
         onDragMove : (coords) => {},
         onDragEnd : (coords) => {
-          this.props.onItemDataUpdate(id, {
-            posX : coords.x,
-            posY : coords.y
-          });
+          if(coords.x && coords.y) {
+            this.props.onItemDataUpdate(id, {
+              posX : coords.x,
+              posY : coords.y
+            });  
+          }
         }
       }
     });

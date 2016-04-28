@@ -68,6 +68,9 @@ export default function(layers = [[]], action) {
 
 
     case types.FLOOR_REMOVE :
+      console.log(action.floorIndex);
+      console.log(layers.slice(0, action.floorIndex));
+      console.log(layers.slice(action.floorIndex + 1));
       return [
         ...layers.slice(0, action.floorIndex),
         ...layers.slice(action.floorIndex + 1)

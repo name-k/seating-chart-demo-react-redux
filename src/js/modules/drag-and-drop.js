@@ -103,7 +103,6 @@ export default class DragAndDrop {
     this.config.callbacks.onDragEnd(this.endPointCoords);
     document.removeEventListener('mousemove', this.handleMouseMove);
     document.removeEventListener('mouseup', this.handleMouseUp);
-
   }
 
 

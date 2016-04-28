@@ -77,6 +77,7 @@ class Canvas extends React.Component {
   }
 
   handleItemDataUpdate(id, newData) {
+    console.log(newData);
     this.props.canvasItemUpdate(id, newData, this.props.floorSelected);
   }
 
@@ -141,11 +142,11 @@ class Canvas extends React.Component {
   }
 }
 
-function mapStateToProps({canvas, constructorData, floorSelected}) {
+function mapStateToProps({canvas, constructorData, floors}) {
   return { 
     canvas, 
     constructorData,
-    floorSelected
+    floorSelected : floors.current
   };
 }
 
