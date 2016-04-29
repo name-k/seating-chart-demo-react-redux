@@ -6,7 +6,7 @@ import assign from 'lodash/assign';
 export function fetchInitialData() {
 
   let DataTransfer = require('modules/data-transfer');
-  let data = new DataTransfer({cacheName : 'seatingChart'}).getInitialAppData();
+  let data = new DataTransfer({cacheName : 'seatingChartV0.2'}).getInitialAppData();
 
   return {
     type : types.FETCH_INITIAL_DATA,
@@ -18,7 +18,7 @@ export function fetchInitialData() {
 export function saveAppData(data) {
 
   let DataTransfer = require('modules/data-transfer');
-  new DataTransfer({cacheName : 'seatingChart'}).saveAppData(data);
+  new DataTransfer({cacheName : 'seatingChartV0.2'}).saveAppData(data);
   
   return {
     type : types.SAVE_DATA
