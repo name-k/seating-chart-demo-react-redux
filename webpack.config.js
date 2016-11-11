@@ -63,15 +63,15 @@ let webpackConfig = {
 
   plugins : [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       NODE_ENV : JSON.stringify(config.flags.mode),
       DEBUG    : JSON.stringify(config.flags.debug)
     }),
-    new webpack.ProvidePlugin({
-      React : 'react'
-    })
+    // new webpack.ProvidePlugin({
+    //   React : 'react'
+    // })
 
   ],
 
