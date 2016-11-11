@@ -1,1 +1,1 @@
-Seating chart constructor demo in React + Redux
+Seating chart constructor demo, developer with React.js and Redux.
